@@ -1,0 +1,30 @@
+post:
+    tags:
+      - event-api
+    summary: Create yai-commander event    
+    operationId: create
+    description: Servicio que crea un evento con parámetros
+    consumes:
+      - application/x-www-form-urlencoded
+    requestBody:
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                example: codeExample001
+              name:
+                type: string
+            required:
+              - code
+    responses:
+      '200':
+        description: Estado de la creación del evento
+        content:
+          application/json:
+            schema:
+              type: object
+      '400':
+        description: Mala petición

@@ -1,0 +1,2 @@
+/event/create:
+  $ref: ./event/create.yaml

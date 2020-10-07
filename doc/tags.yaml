@@ -1,0 +1,2 @@
+- name: event-api
+  description: 'Api para manejo de eventos de yai-commander'
