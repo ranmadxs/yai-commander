@@ -27,4 +27,4 @@ class EventSvc {
 
 const instance = new EventSvc();
 Object.freeze(instance);
-module.exports = instance;    
+module.exports = instance;
