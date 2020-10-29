@@ -6,3 +6,9 @@ database:
     #url: mongodb+srv://adminDB:epsilon1@cluster0.b7amm.mongodb.net/yai-commander?retryWrites=true&w=majority
     url: mongodb://localhost/mth40?retryWrites=true&w=majority
     debug: true
+queue:
+  kafka:
+    CLOUDKARAFKA_TOPIC: 1xpbgxp5-yai
+    CLOUDKARAFKA_BROKERS: tricycle-03.srvs.cloudkafka.com:9094,tricycle-02.srvs.cloudkafka.com:9094,tricycle-01.srvs.cloudkafka.com:9094
+    CLOUDKARAFKA_USERNAME: 1xpbgxp5
+    CLOUDKARAFKA_PASSWORD: YBepu9SHThb2LE90mvnozsDCfnsmUXxq

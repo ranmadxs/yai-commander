@@ -12,7 +12,7 @@ var bodyParser = require('body-parser');
 //var swaggerDocument = YAML.load('./doc/swagger.yaml');
 var multer = require('multer');
 var upload = multer();
-var mth40 = require ('./src/configs');
+var appProps = require ('./src/configs');
 
 /*** Controladores */
 var eventController = require('./src/controller/EventController');
@@ -20,8 +20,9 @@ var eventController = require('./src/controller/EventController');
 /** Factorías */
 var loadSwagger = require('./loadSwagger');
 var mongoFactory = require('./src/factories/MongoConnectionFactory');
+var kafkaFactory = require('./src/factories/KafkaFactory');
 
-logger.debug (mth40);
+logger.debug (appProps);
 
 app.use(
     cors({
@@ -39,17 +40,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/event', eventController);
 
-app.listen(mth40.config.PORT, async () => {
-    logger.debug("mth40-api starting on port="+mth40.config.PORT);
+app.listen(appProps.config.PORT, async () => {
+    logger.debug("mth40-api starting on port="+appProps.config.PORT);
     const docSample = await loadSwagger.load('./doc/index.yaml');
     const swaggerDocument = YAML.parse(docSample);
     const mongoPromised = mongoFactory.connect();
+    const kafkaPromised = kafkaFactory.connect();
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-    Promise.all([mongoPromised]).then(respVal => {
+    Promise.all([mongoPromised, kafkaPromised]).then(respVal => {
         console.log("********************************************************");
         console.log(respVal);
-        console.log('************* Server running on port ' + mth40.config.PORT + " **************");
+        console.log('************* Server running on port ' + appProps.config.PORT + " **************");
         console.log("********************************************************");
     }).catch(reason => { 
         logger.error(reason);

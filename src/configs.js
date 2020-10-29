@@ -3,21 +3,25 @@ var path = require('path');
 const yaml = require('js-yaml');
 var logger = require('../LogConfig');
 
-let mth40 = {};
+let appProps = {};
 try {
     var filename = path.join(__dirname, 'resources/application.yml');
     let fileContents = fs.readFileSync(filename, 'utf8');
-    let mth40Properties = yaml.safeLoad(fileContents);
+    let appProperties = yaml.safeLoad(fileContents);
 
-    mth40 = {
+    appProps = {
         config : {
-            PORT : process.env.PORT || mth40Properties.api.port,
-            MONGO_URL : process.env.MONGO_URL || mth40Properties.database.mongodb.url,
+            PORT : process.env.PORT || appProperties.api.port,
+            MONGO_URL : process.env.MONGO_URL || appProperties.database.mongodb.url,
+            CLOUDKARAFKA_TOPIC: process.env.CLOUDKARAFKA_TOPIC || appProperties.queue.kafka.CLOUDKARAFKA_TOPIC,
+            CLOUDKARAFKA_BROKERS: process.env.CLOUDKARAFKA_BROKERS || appProperties.queue.kafka.CLOUDKARAFKA_BROKERS,
+            CLOUDKARAFKA_USERNAME: process.env.CLOUDKARAFKA_USERNAME || appProperties.queue.kafka.CLOUDKARAFKA_USERNAME,
+            CLOUDKARAFKA_PASSWORD: process.env.CLOUDKARAFKA_PASSWORD || appProperties.queue.kafka.CLOUDKARAFKA_PASSWORD,
         },
-        properties: mth40Properties
+        properties: appProperties
     }
 } catch (e) {
     logger.error(e);
 }
 
-module.exports = mth40;
+module.exports = appProps;

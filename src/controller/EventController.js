@@ -5,6 +5,7 @@ const logger = require('../../LogConfig');
 const eventSvc = require('../svc/EventSvc');
 const { check, validationResult } = require('express-validator');
 const YaiError = require  ('../utils/YaiError');
+const kafkaFactory = require('../factories/KafkaFactory');
 
 logger.info("Event Controller", "[CTRL_INIT]");
 
@@ -22,6 +23,7 @@ router.post('/create', [
     let result = null;
     try{
         result = await eventSvc.create(body);
+        kafkaFactory.send(JSON.stringify(result));
         console.log (result, 'result');
       } catch(ex){
         logger.error(ex);

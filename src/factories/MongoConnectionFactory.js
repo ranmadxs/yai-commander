@@ -1,17 +1,17 @@
 var mongoose = require ("mongoose");
 var logger = require('../../LogConfig');
-var mth40 = require ('../configs');
+var appProps = require ('../configs');
 
 class MongoConnectionFactory {
     constructor(){
-        this.url = mth40.config.MONGO_URL;
+        this.url = appProps.config.MONGO_URL;
         logger.debug("MongoDB Factory", "[DB_INIT]");
     }
 
     async connect() {
         const uristring = this.url;
         return new Promise(function (resolve, reject) {
-            mongoose.set('debug', mth40.properties.database.mongodb.debug);
+            mongoose.set('debug', appProps.properties.database.mongodb.debug);
             mongoose.set('useFindAndModify', false);
             mongoose.connect(uristring, { useNewUrlParser: true , useUnifiedTopology: true}, function (err, res) {
                 if (err) {
