@@ -34,7 +34,7 @@ router.post('/create', [
 });
 
 router.post('/test', [], async (req, res) => {
-  logger.debug(req.body, 'req.body [/create]');
+  logger.debug(req.body, 'req.body [/test]');
   logger.debug('Test del terror');
   const result = { status: 'OK', valid: true };
   res.writeHead(200, {'Content-Type': 'application/json'});
