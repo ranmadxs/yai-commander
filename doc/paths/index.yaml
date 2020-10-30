@@ -1,2 +1,4 @@
 /event/create:
   $ref: ./event/create.yaml
+/event/test:
+  $ref: ./event/test.yaml  

@@ -20,5 +20,11 @@ curl -X POST "http://localhost:8081/event/create" -H  "accept: application/json"
 export CLOUDKARAFKA_BROKERS=tricycle-01.srvs.cloudkafka.com:9094,tricycle-02.srvs.cloudkafka.com:9094,tricycle-03.srvs.cloudkafka.com:9094
 export CLOUDKARAFKA_USERNAME=1xpbgxp5
 export CLOUDKARAFKA_PASSWORD=YBepu9SHThb2LE90mvnozsDCfnsmUXxq
-export CLOUDKARAFKA_TOPIC=1xpbgxp5-ya
+export CLOUDKARAFKA_TOPIC=1xpbgxp5-yai
 ```
+
+### IFTTT
+
+Method= POST
+Content Type = application/json
+Body = {"code":"<<<CMD>>>","name":"<<<sudo systemctl suspend>>>"}

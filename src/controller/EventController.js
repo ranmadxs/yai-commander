@@ -21,16 +21,24 @@ router.post('/create', [
     logger.debug('Lolaso la pezcada');
     const { body } = req;
     let result = null;
-    try{
+    try {
         result = await eventSvc.create(body);
         kafkaFactory.send(JSON.stringify(result));
         console.log (result, 'result');
-      } catch(ex){
+      } catch(ex) {
         logger.error(ex);
         return res.status(_.isEmpty(ex)?500:ex.code).json(_.isEmpty(ex)?{ error: ex.message }:ex);
-    }    
+    }
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end(JSON.stringify(result));
+});
+
+router.post('/test', [], async (req, res) => {
+  logger.debug(req.body, 'req.body [/create]');
+  logger.debug('Test del terror');
+  const result = { status: 'OK', valid: true };
+  res.writeHead(200, {'Content-Type': 'application/json'});
+  res.end(JSON.stringify(result));
 });
 
 module.exports = router;
