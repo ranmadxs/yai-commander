@@ -1,7 +1,7 @@
 var mongoose = require ("mongoose");
 
 var googleAssistantSchema = new mongoose.Schema({
-    request: { type: Object, required: true },
+    request: { type: String, trim: true, required: true },
     createdAt: { type: Date, default: Date.now },
 });
 

@@ -15,7 +15,7 @@ class GoogleAssistantSvc {
     logger.info("Se esta ingresando un google assistent nuevo", jsonObject.responseId);
     let saveEvent = null;
     try {
-      var event = new GoogleAssistant.model({request: jsonObject});
+      var event = new GoogleAssistant.model({request: JSON.stringify(jsonObject)});
       saveEvent = await event.save();
     } catch (err) {
       console.error('la wea el error gassitant');
