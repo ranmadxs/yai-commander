@@ -36,7 +36,24 @@ router.post('/create', [
 router.post('/test', [], async (req, res) => {
   logger.debug(req.body, 'req.body [/test]');
   logger.debug('Test del terror');
-  const result = { status: 'OK', valid: true };
+  // const result = { status: 'OK', valid: true };
+  const result = 
+  {
+    "payload": {
+      "google": {
+        "expectUserResponse": true,
+        "richResponse": {
+          "items": [
+            {
+              "simpleResponse": {
+                "textToSpeech": "this is a Google Assistant response XDDD"
+              }
+            }
+          ]
+        }
+      }
+    }
+  };
   res.writeHead(200, {'Content-Type': 'application/json'});
   res.end(JSON.stringify(result));
 });
