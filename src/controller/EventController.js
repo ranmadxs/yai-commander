@@ -43,12 +43,12 @@ router.post('/test', [], async (req, res) => {
   {
     "payload": {
       "google": {
-        "expectUserResponse": true,
+        "expectUserResponse": false,
         "richResponse": {
           "items": [
             {
               "simpleResponse": {
-                "textToSpeech": "Respuesta desde yai comandante"
+                "textToSpeech": "this is a Google Assistant response XDDD"
               }
             }
           ]
