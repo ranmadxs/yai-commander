@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 const logger = require('../../LogConfig');
 const eventSvc = require('../svc/EventSvc');
+const googleAssistantSvc = require('../svc/GoogleAssistantSvc');
 const { check, validationResult } = require('express-validator');
 const YaiError = require  ('../utils/YaiError');
 const kafkaFactory = require('../factories/KafkaFactory');
@@ -37,6 +38,7 @@ router.post('/test', [], async (req, res) => {
   logger.debug(req.body, 'req.body [/test]');
   logger.debug('Test del terror');
   // const result = { status: 'OK', valid: true };
+  googleAssistantSvc.create(req.body);
   const result = 
   {
     "payload": {
@@ -46,7 +48,7 @@ router.post('/test', [], async (req, res) => {
           "items": [
             {
               "simpleResponse": {
-                "textToSpeech": "this is a Google Assistant response XDDD"
+                "textToSpeech": "Respuesta desde yai comandante"
               }
             }
           ]
