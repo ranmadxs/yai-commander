@@ -1,0 +1,25 @@
+post:
+    tags:
+      - event-api
+    summary: Test api post call
+    operationId: test
+    description: Servicio que testea invocación al servidor
+    consumes:
+      - application/x-www-form-urlencoded
+    requestBody:
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              parameter:
+                type: string
+    responses:
+      '200':
+        description: Respuesta del test
+        content:
+          application/json:
+            schema:
+              type: object
+      '400':
+        description: Mala petición
