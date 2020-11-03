@@ -48,7 +48,7 @@ router.post('/test', [], async (req, res) => {
           "items": [
             {
               "simpleResponse": {
-                "textToSpeech": "this is a Google Assistant response XDDD"
+                "textToSpeech": "Orden completada correctamente"
               }
             }
           ]
