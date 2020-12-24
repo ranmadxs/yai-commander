@@ -17,6 +17,8 @@ try {
             CLOUDKARAFKA_BROKERS: process.env.CLOUDKARAFKA_BROKERS || appProperties.queue.kafka.CLOUDKARAFKA_BROKERS,
             CLOUDKARAFKA_USERNAME: process.env.CLOUDKARAFKA_USERNAME || appProperties.queue.kafka.CLOUDKARAFKA_USERNAME,
             CLOUDKARAFKA_PASSWORD: process.env.CLOUDKARAFKA_PASSWORD || appProperties.queue.kafka.CLOUDKARAFKA_PASSWORD,
+            CLOUDKARAFKA_PASSWORD: process.env.CLOUDKARAFKA_PASSWORD || appProperties.queue.kafka.CLOUDKARAFKA_PASSWORD,
+            MQTT_HOST: process.env.MQTT_HOST || appProperties.mqtt.MQTT_HOST,
         },
         properties: appProperties
     }

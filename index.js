@@ -21,6 +21,7 @@ var eventController = require('./src/controller/EventController');
 var loadSwagger = require('./loadSwagger');
 var mongoFactory = require('./src/factories/MongoConnectionFactory');
 var kafkaFactory = require('./src/factories/KafkaFactory');
+var mqttFactory = require('./src/factories/MqttFactory');
 
 logger.debug (appProps);
 
@@ -46,9 +47,10 @@ app.listen(appProps.config.PORT, async () => {
     const swaggerDocument = YAML.parse(docSample);
     const mongoPromised = mongoFactory.connect();
     const kafkaPromised = kafkaFactory.connect();
+    const mqttPromised = mqttFactory.connect();
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-    Promise.all([mongoPromised, kafkaPromised]).then(respVal => {
+    Promise.all([mongoPromised, kafkaPromised, mqttPromised]).then(respVal => {
         console.log("********************************************************");
         console.log(respVal);
         console.log('************* Server running on port ' + appProps.config.PORT + " **************");

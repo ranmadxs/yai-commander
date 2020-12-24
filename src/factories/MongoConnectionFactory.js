@@ -3,7 +3,7 @@ var logger = require('../../LogConfig');
 var appProps = require ('../configs');
 
 class MongoConnectionFactory {
-    constructor(){
+    constructor() {
         this.url = appProps.config.MONGO_URL;
         logger.debug("MongoDB Factory", "[DB_INIT]");
     }

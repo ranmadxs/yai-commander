@@ -7,6 +7,7 @@ const googleAssistantSvc = require('../svc/GoogleAssistantSvc');
 const { check, validationResult } = require('express-validator');
 const YaiError = require  ('../utils/YaiError');
 const kafkaFactory = require('../factories/KafkaFactory');
+const mqttFactory = require ('../factories/MqttFactory')
 var RuleEngine = require("node-rules");
 
 logger.info("Event Controller", "[CTRL_INIT]");
@@ -19,7 +20,7 @@ var rule = {
       R.when(this.transactionTotal < 500);
   },
   "consequence": function(R) {
-      this.result = false;
+      this.result = true;
       this.reason = "The transaction was blocked as it was less than 500";
       R.stop();
   }
@@ -33,7 +34,8 @@ var fact = {
   "name": "user4",
   "application": "MOB2",
   "transactionTotal": 4500,
-  "cardType": "Credit Card"
+  "cardType": "Credit Card",
+  "lalal": "XD"
 };
 
 
@@ -49,11 +51,9 @@ router.get('/rule', async (req, res) => {
       logger.debug("Blocked Reason:" + data.reason);
     }
   });
-
   logger.debug('Fin motor de reglas', 'Reglas');
   res.writeHead(200, {'Content-Type': 'application/json'});
   res.end(JSON.stringify(result));
-
 });
 
 
@@ -66,7 +66,7 @@ router.post('/create', [
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    logger.debug('Lolaso la pezcada');
+    logger.debug('Ingreso de cliente de kafka');
     const { body } = req;
     logger.info(body.parameters, 'parameters');
     if (body.parameters) {
@@ -76,7 +76,9 @@ router.post('/create', [
     let result = null;
     try {
         result = await eventSvc.create(body);
-        kafkaFactory.send(JSON.stringify(result));
+        const messageQueue = JSON.stringify(result);
+        kafkaFactory.send(messageQueue);
+        mqttFactory.send(messageQueue);
         console.log (result, 'result');
       } catch(ex) {
         logger.error(ex);
